@@ -57,19 +57,24 @@ def main(leafsize, outfile, input_filenames):
     else:
         print("Unsupported number of channels")
         sys.exit(1)
-    ana_files = wrap(mono_files, analyze)
+    wrap(mono_files, analyze)
     combine_inputs = []
     combine_outputs = []
     if num_chans == 1:
         combine_inputs.append(wrap(mono_files, get_ana_file))
         combine_outputs.append(os.path.join(TMP_DIR, "combined_c0.ana"))
     elif num_chans == 2:
-        combine_inputs.append(wrap(mono_files, get_ana_file, type=1))
-        combine_inputs.append(wrap(mono_files, get_ana_file, type=2))
-        combine_outputs.append(os.path.join(TMP_DIR, "combined_c1.ana"))
-        combine_outputs.append(os.path.join(TMP_DIR, "combined_c2.ana"))
+        for i in range(1, 3):
+            tmp = [x for x in mono_files if x.endswith(f"_c{i}.wav")]
+            combine_inputs.append(wrap(tmp, new_ext))
+            combine_outputs.append(os.path.join(TMP_DIR, f"combined_c{i}.ana"))
+        # combine_inputs.append(wrap(mono_files, get_ana_file, type=1))
+        # combine_inputs.append(wrap(mono_files, get_ana_file, type=2))
+        # combine_outputs.append(os.path.join(TMP_DIR, "combined_c1.ana"))
+        # combine_outputs.append(os.path.join(TMP_DIR, "combined_c2.ana"))
     # another exception to the wrap pattern:
     synth_outputs = []
+    # import IPython;IPython.embed()
     for idx, input in enumerate(combine_inputs):
         interleave(input, combine_outputs[idx], leafsize)
         synth_outputs.append(synth(combine_outputs[idx]))
@@ -85,13 +90,13 @@ def main(leafsize, outfile, input_filenames):
 def submix(channel_files, outfile):
     "combine 2 mono files into a stereo file"
     assert len(channel_files) == 2
-    sh.submix(interleave*channel_files, outfile) # pyright: ignore
+    sh.submix("interleave", *channel_files, outfile) # pyright: ignore
     return outfile
 
 def synth(ana_file):
-    outfile = new_ext(ana_file, "wav")
-    sh.pvoc("synth", ana_file, outfile) # pyright: ignore
-    return outfile
+    outputfile = new_ext(ana_file, "wav")
+    sh.pvoc("synth", ana_file, outputfile) # pyright: ignore
+    return outputfile
 
 def get_ana_file(input_file, type=0):
     """
@@ -104,9 +109,9 @@ def get_ana_file(input_file, type=0):
     if type == 0:
         return new_ext(input_file)
     elif type == 1:
-        return new_ext(input_file, before_ext="_c1")
+        return new_ext(input_file)
     elif type == 2:
-        return new_ext(input_file, before_ext="_c2")
+        return new_ext(input_file)
     else:
         print("Unsupported type")
         sys.exit(1)
