@@ -68,10 +68,6 @@ def main(leafsize, outfile, input_filenames):
             tmp = [x for x in mono_files if x.endswith(f"_c{i}.wav")]
             combine_inputs.append(wrap(tmp, new_ext))
             combine_outputs.append(os.path.join(TMP_DIR, f"combined_c{i}.ana"))
-        # combine_inputs.append(wrap(mono_files, get_ana_file, type=1))
-        # combine_inputs.append(wrap(mono_files, get_ana_file, type=2))
-        # combine_outputs.append(os.path.join(TMP_DIR, "combined_c1.ana"))
-        # combine_outputs.append(os.path.join(TMP_DIR, "combined_c2.ana"))
     # another exception to the wrap pattern:
     synth_outputs = []
     # import IPython;IPython.embed()
