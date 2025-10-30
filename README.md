@@ -269,13 +269,18 @@ stretch(time_stretch=1.5)
 from cdp_pipeline.operations import (
     modify_speed,    # Change speed
     envel_attack,    # Envelope shaping
-    filter_lopass,   # Low-pass filter
+    filter_lohi,     # Low-pass or high-pass filter
 )
 
 # Usage:
 modify_speed(speed=2.0)
 envel_attack(attack_time=0.5)
-filter_lopass(cutoff_freq=1000)
+
+# Low-pass filter (stop_band > pass_band)
+filter_lohi(attenuation=-60, pass_band=1000, stop_band=2000, mode=1)
+
+# High-pass filter (stop_band < pass_band)
+filter_lohi(attenuation=-60, pass_band=2000, stop_band=1000, mode=1)
 ```
 
 #### Custom Operations
