@@ -525,7 +525,7 @@ pipeline.run(
 
 ### Using the MCP Server
 
-The CDP MCP server provides additional tools for working with CDP:
+The [CDP MCP server](https://github.com/DavidPiazza/CDP_MCP/) provides additional tools for working with CDP:
 
 ```python
 # List available CDP programs
