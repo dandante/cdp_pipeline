@@ -193,7 +193,7 @@ from cdp_pipeline.core import CDPOperation, OperationRequirements, FileFormat, C
 operation = CDPOperation(
     name="blur_2.0",
     program="blur",
-    mode="blur",
+    subcommand="blur",
     input_requirements=OperationRequirements(FileFormat.ANA, ChannelMode.MONO),
     output_format=FileFormat.ANA,
     params=[2.0]
@@ -289,8 +289,8 @@ from cdp_pipeline.core import FileFormat, ChannelMode
 my_op = custom_operation(
     name="specfold_1",
     program="specfold",
-    mode="specfold",
-    mode_param=1,           # Numeric mode (comes after mode, before files)
+    subcommand="specfold",
+    mode=1,                 # Numeric mode (comes after subcommand, before files)
     input_format=FileFormat.ANA,
     output_format=FileFormat.ANA,
     channels=ChannelMode.MONO,
@@ -298,11 +298,11 @@ my_op = custom_operation(
     multi_input=False
 )
 
-# For operations without a numeric mode parameter, omit mode_param:
+# For operations without a numeric mode, omit mode:
 simple_op = custom_operation(
     name="blur_custom",
     program="blur",
-    mode="blur",
+    subcommand="blur",
     params=[2.0]  # Only params after files
 )
 ```
@@ -442,7 +442,7 @@ cutoff_sweep = Breakpoint.from_pairs(
 filter_op = custom_operation(
     name="filter_sweep",
     program="filter",
-    mode="lopass",
+    subcommand="lopass",
     params=[cutoff_sweep]
 )
 
@@ -598,7 +598,7 @@ def my_new_operation(param1: float, param2: int) -> CDPOperation:
     return CDPOperation(
         name=f"my_op_{param1}",
         program="cdp_program",
-        mode="mode",
+        subcommand="subcommand",
         input_requirements=OperationRequirements(FileFormat.ANA, ChannelMode.MONO),
         output_format=FileFormat.ANA,
         params=[param1, param2]
@@ -656,9 +656,9 @@ Potential areas for expansion:
 
 ## License
 
-[Your license here]
+[GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Credits
 
 Built for working with the Composers' Desktop Project (CDP).
-CDP: http://www.composers-desktop-project.net/
+CDP: https://www.composersdesktop.com/

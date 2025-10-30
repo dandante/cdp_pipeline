@@ -22,8 +22,8 @@ class TestSpecfoldOperation(unittest.TestCase):
         specfold_op = custom_operation(
             name="specfold_1",
             program="specfold",
-            mode="specfold",
-            mode_param=1,
+            subcommand="specfold",
+            mode=1,
             input_format=FileFormat.ANA,
             output_format=FileFormat.ANA,
             channels=ChannelMode.MONO,
@@ -31,8 +31,8 @@ class TestSpecfoldOperation(unittest.TestCase):
         )
 
         self.assertEqual(specfold_op.program, "specfold")
-        self.assertEqual(specfold_op.mode, "specfold")
-        self.assertEqual(specfold_op.mode_param, 1)
+        self.assertEqual(specfold_op.subcommand, "specfold")
+        self.assertEqual(specfold_op.mode, 1)
         self.assertEqual(specfold_op.params, [1, 4, 3])
         self.assertEqual(specfold_op.input_requirements.format, FileFormat.ANA)
         self.assertEqual(specfold_op.output_format, FileFormat.ANA)
@@ -52,8 +52,8 @@ class TestSpecfoldOperation(unittest.TestCase):
         specfold_op = custom_operation(
             name="specfold_1",
             program="specfold",
-            mode="specfold",
-            mode_param=1,
+            subcommand="specfold",
+            mode=1,
             input_format=FileFormat.ANA,
             output_format=FileFormat.ANA,
             channels=ChannelMode.MONO,

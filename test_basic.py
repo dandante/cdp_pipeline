@@ -59,7 +59,7 @@ class TestOperations(unittest.TestCase):
         """Test blur operation creation."""
         blur_op = blur(2.0)
         self.assertEqual(blur_op.program, "blur")
-        self.assertEqual(blur_op.mode, "blur")
+        self.assertEqual(blur_op.subcommand, "blur")
         self.assertEqual(blur_op.input_requirements.format, FileFormat.ANA)
         self.assertIn(2.0, blur_op.params)
 

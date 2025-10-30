@@ -15,7 +15,7 @@ class TestCommandStructure(unittest.TestCase):
     """Test CDP command structure building."""
 
     def test_simple_command(self):
-        """Test a simple command without mode_param."""
+        """Test a simple command without mode."""
         op = blur(2.0)
 
         input_file = AudioFile(Path("input.ana"), FileFormat.ANA, ChannelMode.MONO)
@@ -49,8 +49,8 @@ class TestCommandStructure(unittest.TestCase):
         op = custom_operation(
             name="specfold_1",
             program="specfold",
-            mode="specfold",
-            mode_param=1,
+            subcommand="specfold",
+            mode=1,
             params=[1, 4, 3]
         )
 
@@ -68,8 +68,8 @@ class TestCommandStructure(unittest.TestCase):
         op = custom_operation(
             name="pvoc_anal",
             program="pvoc",
-            mode="anal",
-            mode_param=1,
+            subcommand="anal",
+            mode=1,
             input_format=FileFormat.WAV,
             output_format=FileFormat.ANA
         )
@@ -83,12 +83,12 @@ class TestCommandStructure(unittest.TestCase):
         self.assertEqual(args, expected)
 
     def test_command_with_only_params_after(self):
-        """Test command with only params after files (no mode_param)."""
+        """Test command with only params after files (no mode)."""
         op = custom_operation(
             name="test_op",
             program="testprog",
-            mode="testmode",
-            mode_param=None,
+            subcommand="testmode",
+            mode=None,
             params=[10, 20, 30]
         )
 

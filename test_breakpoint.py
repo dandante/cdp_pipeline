@@ -168,8 +168,8 @@ class TestBreakpointIntegration(unittest.TestCase):
         distort_op = custom_operation(
             name="distort_average",
             program="distort",
-            mode="average",
-            mode_param=1,
+            subcommand="average",
+            mode=1,
             input_format=FileFormat.WAV,
             output_format=FileFormat.WAV,
             channels=ChannelMode.MONO,
@@ -177,7 +177,7 @@ class TestBreakpointIntegration(unittest.TestCase):
         )
 
         self.assertEqual(distort_op.program, "distort")
-        self.assertEqual(distort_op.mode, "average")
+        self.assertEqual(distort_op.subcommand, "average")
         self.assertEqual(len(distort_op.params), 1)
         self.assertIsInstance(distort_op.params[0], Breakpoint)
 

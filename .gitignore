@@ -1,3 +1,4 @@
 tmp/
 third*.wav
 __pycache__/
+cdp_pipeline/__pycache__/
