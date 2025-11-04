@@ -13,11 +13,13 @@ from cdp_pipeline.operations import combine_interleave
 
 
 @click.command()
-@click.option('--leafsize', default=1, help='Leaf size for interleaving')
-@click.option("--outfile", default=None, help="Output file", required=True)
+@click.option("--leafsize", default=1, help="Leaf size for interleaving")
+@click.option("--outfile", help="Output file", required=True)
 @click.option("--keep-temp", is_flag=True, help="Keep temporary files for debugging")
 @click.option("--verbose", is_flag=True, help="Print CDP commands as they are executed")
-@click.argument("input_filenames", nargs=-1, type=click.Path(exists=True), required=True)
+@click.argument(
+    "input_filenames", nargs=-1, type=click.Path(exists=True), required=True
+)
 def main(leafsize, outfile, keep_temp, verbose, input_filenames):
     """Interleave multiple audio files using CDP's combine interleave."""
 
@@ -40,7 +42,7 @@ def main(leafsize, outfile, keep_temp, verbose, input_filenames):
             input_files=list(input_filenames),
             output_file=outfile,
             keep_temp=keep_temp,
-            verbose=verbose
+            verbose=verbose,
         )
 
         click.echo(f"Created {result.path}")
